@@ -146,8 +146,8 @@
         if (!response.ok) throw new Error(response.statusText);
         let data = await response.json();
         data = data
-          .filter(p => p.level >= 0)
-          .sort((a,b)=>a.rank - b.rank)
+          .filter(p => p.level >= 0) // Keep the filter
+          // The data is already sorted by the server. We just need to display it.
           .slice(0,15);
         if (!data.length) {
           tBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:14px;color:#9ab4db;">Nessun record ancora.</td></tr>';
