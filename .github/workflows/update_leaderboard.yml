@@ -45,12 +45,15 @@ jobs:
               except:
                   leaderboard = []
 
+          # Rimuovi vecchi punteggi dello stesso utente per evitare duplicati
+          leaderboard = [s for s in leaderboard if s.get('name') != payload.get('username')]
+
           # Aggiungi nuovo punteggio
           new_entry = {
-              'name': payload['username'],
-              'score': payload['score'],
-              'level': payload['level'],
-              'time': payload['time']
+              'name': payload.get('username'),
+              'score': payload.get('score'),
+              'level': payload.get('level'),
+              'time': payload.get('time')
           }
           leaderboard.append(new_entry)
           
@@ -72,10 +75,16 @@ jobs:
               json.dump(leaderboard, f, indent=4)
           "
 
-      - name: Commit and Push
+      - name: Commit and Push if Changed
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add leaderboard.json
-          git commit -m "Update leaderboard: ${{ github.event.client_payload.username }}" || exit 0
-          git push
+          
+          # Solo se ci sono cambiamenti, fai commit e push
+          if ! git diff --staged --quiet; then
+            git commit -m "Update leaderboard: ${{ github.event.client_payload.username }}"
+            git push
+          else
+            echo "No changes to commit."
+          fi
