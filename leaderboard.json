@@ -7,24 +7,31 @@
         "rank": 1
     },
     {
+        "name": "TEST4",
+        "score": 299710,
+        "level": 3,
+        "time": "00:29",
+        "rank": 2
+    },
+    {
         "name": "TEST2",
         "score": 199900,
         "level": 2,
         "time": "00:10",
-        "rank": 2
+        "rank": 3
     },
     {
         "name": "LIUK",
         "score": 199700,
         "level": 2,
         "time": "00:30",
-        "rank": 3
+        "rank": 4
     },
     {
         "name": "TEST",
         "score": 99990,
         "level": 1,
         "time": "00:01",
-        "rank": 4
+        "rank": 5
     }
 ]
