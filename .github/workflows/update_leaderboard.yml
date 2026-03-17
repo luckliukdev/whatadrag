@@ -26,7 +26,7 @@ jobs:
           PAYLOAD: ${{ toJson(github.event.client_payload) }}
         run: |
           python3 -c "
-          import json, os
+          import json, os, traceback
 
           def safe_int(value, default=0):
               try:
@@ -47,19 +47,70 @@ jobs:
               except:
                   return 999999
 
-          # Carica dati evento
           try:
+              # Carica dati evento
               payload = json.loads(os.environ.get('PAYLOAD', '{}'))
               username = str(payload.get('username', '') or '').strip()
               if not username:
-                  print('Warning: username mancante, uso placeholder "UnknownPlayer"')
+                  print('Warning: username mancante da payload, uso placeholder "UnknownPlayer"')
                   username = 'UnknownPlayer'
               print(f'Processing score for: {username}')
-          except Exception as e:
-              print(f'Error reading payload: {e}')
-              exit(1)
 
-          file_path = 'leaderboard.json'
+              file_path = 'leaderboard.json'
+              leaderboard = []
+              if os.path.exists(file_path):
+                  try:
+                      with open(file_path, 'r', encoding='utf-8') as f:
+                          leaderboard = json.load(f)
+                          if isinstance(leaderboard, dict):
+                              leaderboard = leaderboard.get('players', [])
+                          if not isinstance(leaderboard, list):
+                              leaderboard = []
+                  except Exception as e:
+                      print(f'Warning reading existing leaderboard: {e}')
+                      leaderboard = []
+
+              level = safe_int(payload.get('level'), 0)
+              score = safe_int(payload.get('score'), 0)
+              time_str = payload.get('time', '99:99')
+              if not isinstance(time_str, str):
+                  time_str = '99:99'
+
+              new_entry = {'name': username, 'score': score, 'level': level, 'time': time_str}
+              leaderboard.append(new_entry)
+
+              leaderboard.sort(
+                  key=lambda item: (
+                      -safe_int(item.get('level', 0)),
+                      safe_time_sec(item.get('time', '99:99')),
+                      -safe_int(item.get('score', 0))
+                  )
+              )
+
+              unique_leaderboard = []
+              seen_users = set()
+              for entry in leaderboard:
+                  normalized_name = str(entry.get('name', '')).strip().lower()
+                  if not normalized_name:
+                      continue
+                  if normalized_name not in seen_users:
+                      seen_users.add(normalized_name)
+                      unique_leaderboard.append(entry)
+
+              leaderboard = unique_leaderboard[:100]
+
+              for i, entry in enumerate(leaderboard):
+                  entry['rank'] = i + 1
+
+              with open(file_path, 'w', encoding='utf-8') as f:
+                  json.dump(leaderboard, f, indent=4, ensure_ascii=False)
+
+              print('Leaderboard updated successfully')
+          except Exception as err:
+              print('FALLITO update leaderboard', err)
+              traceback.print_exc()
+              raise SystemExit(1)
+          "
 
           # Carica o crea classifica esistente
           leaderboard = []
