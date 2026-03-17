@@ -33,5 +33,12 @@
         "level": 1,
         "time": "00:01",
         "rank": 5
+    },
+    {
+        "name": "LITT",
+        "score": 99890,
+        "level": 1,
+        "time": "00:11",
+        "rank": 6
     }
 ]
