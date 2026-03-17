@@ -1,0 +1,119 @@
+name: Update Leaderboard
+
+on:
+  repository_dispatch:
+    types: [submit-score]
+
+permissions:
+  contents: write
+
+jobs:
+  update-score:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Update Leaderboard JSON
+        env:
+          PAYLOAD: ${{ toJson(github.event.client_payload) }}
+        run: |
+          python3 -c "
+          import json, os
+          
+          # Carica dati evento
+          try:
+              payload = json.loads(os.environ['PAYLOAD'])
+              print(f'Processing score for: {payload.get(\"username\")}')
+          except Exception as e:
+              print(f'Error reading payload: {e}')
+              exit(1)
+          
+          file_path = 'leaderboard.json'
+          
+          # Carica o crea classifica esistente
+          leaderboard = []
+          if os.path.exists(file_path):
+              try:
+                  with open(file_path, 'r') as f:
+                      leaderboard = json.load(f)
+                      # Gestione robustezza: se è un dict (vecchio formato), cerca 'players' o resetta
+                      if isinstance(leaderboard, dict):
+                          leaderboard = leaderboard.get('players', [])
+                      
+                      # Assicurati che sia una lista
+                      if not isinstance(leaderboard, list):
+                          leaderboard = []
+              except:
+                  leaderboard = []
+
+          # Aggiungi nuovo punteggio
+          new_entry = {
+              'name': payload.get('username'),
+              'score': payload.get('score'),
+              'level': payload.get('level'),
+              'time': payload.get('time')
+          }
+          leaderboard.append(new_entry)
+          
+          # Funzione helper per convertire tempo in secondi per l'ordinamento
+          def time_to_sec(t):
+              try:
+                  m, s = map(int, str(t).split(':'))
+                  return m * 60 + s
+              except:
+                  return 999999
+          
+          # Funzione helper sicura per il livello
+          def safe_level(item):
+              try:
+                  return int(item.get('level', 0))
+              except:
+                  return 0
+          
+          # Ordina: Livello decrescente, poi Tempo crescente
+          # Usa funzioni sicure per evitare crash se i dati sono sporchi
+          leaderboard.sort(key=lambda x: (-safe_level(x), time_to_sec(x.get('time'))))
+          
+          # --- DEDUPLICAZIONE INTELLIGENTE ---
+          # Mantiene solo il punteggio migliore (il primo trovato dopo il sort) per ogni utente
+          unique_leaderboard = []
+          seen_users = set()
+          for entry in leaderboard:
+              name = entry.get('name')
+              if name not in seen_users:
+                  unique_leaderboard.append(entry)
+                  seen_users.add(name)
+          
+          leaderboard = unique_leaderboard
+          
+          # Tieni Top 100
+          leaderboard = leaderboard[:100]
+          
+          # --- ASSEGNAZIONE RANK ---
+          # Calcola la posizione (1, 2, 3...) e salvala nel JSON per l'HTML
+          for i, entry in enumerate(leaderboard):
+              entry['rank'] = i + 1
+
+          with open(file_path, 'w') as f:
+              json.dump(leaderboard, f, indent=4)
+          "
+
+      - name: Commit and Push if Changed
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add leaderboard.json
+          
+          # Solo se ci sono cambiamenti, fai commit e push
+          if ! git diff --staged --quiet; then
+            git commit -m "Update leaderboard: ${{ github.event.client_payload.username }}"
+            git push
+          else
+            echo "No changes to commit."
+          fi
