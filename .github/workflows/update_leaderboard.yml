@@ -10,12 +10,14 @@ permissions:
 jobs:
   update-score:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.x'
 
@@ -47,10 +49,11 @@ jobs:
 
           # Carica dati evento
           try:
-              payload = json.loads(os.environ['PAYLOAD'])
-              username = str(payload.get('username', '')).strip()
+              payload = json.loads(os.environ.get('PAYLOAD', '{}'))
+              username = str(payload.get('username', '') or '').strip()
               if not username:
-                  raise ValueError('username vuoto o mancante')
+                  print('Warning: username mancante, uso placeholder "UnknownPlayer"')
+                  username = 'UnknownPlayer'
               print(f'Processing score for: {username}')
           except Exception as e:
               print(f'Error reading payload: {e}')
