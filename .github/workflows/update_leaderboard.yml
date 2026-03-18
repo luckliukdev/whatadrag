@@ -45,7 +45,7 @@ jobs:
           leaderboard = []
           if os.path.exists(file_path):
               try:
-                  with open(file_path, 'r') as f:
+                  with open(file_path, 'r', encoding='utf-8') as f:
                       leaderboard = json.load(f)
               except:
                   leaderboard = []
@@ -90,8 +90,8 @@ jobs:
           for i, entry in enumerate(leaderboard):
               entry['rank'] = i + 1
 
-          with open(file_path, 'w') as f:
-              json.dump(leaderboard, f, indent=4)
+          with open(file_path, 'w', encoding='utf-8') as f:
+              json.dump(leaderboard, f, indent=4, ensure_ascii=False)
           "
 
       - name: Commit and Push if Changed
@@ -103,6 +103,7 @@ jobs:
           # Solo se ci sono cambiamenti, fai commit e push
           if ! git diff --staged --quiet; then
             git commit -m "Update leaderboard: ${{ github.event.client_payload.username }}"
+            git pull --rebase
             git push
           else
             echo "No changes to commit."
