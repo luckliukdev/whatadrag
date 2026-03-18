@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>What a drag! - Global Leaderboard</title>
+
+  <style>
+    :root {
+      --bg: #04070d;
+      --panel: rgba(5, 9, 19, 0.88);
+      --text: #f6f7ff;
+      --muted: #91a3c8;
+      --gold: #ffd700;
+      --silver: #c0c0c0;
+      --bronze: #cd7f32;
+      --blue: #61dafb;
+      --accent: #5b88ff;
+      --neon: #2df0f7;
+
+      /* Palette “What a Drag!” per il cartiglio */
+      --ink: #3a3a3a;
+      --paper: #e5e5e3;
+      --green: #95a972;
+      --plum: #9b6c86;
+      --steel: #7fa0b5;
+    }
+
+    * { box-sizing: border-box; margin:0; padding:0; }
+
+    /* =========================
+       SFONDO PAGINA (immagine + velatura)
+       ========================= */
+    body {
+      min-height: 100vh;
+      color: var(--text);
+
+      /* Sostituisci con: url("sfondo.jpg") o .png/.webp */
+      background-image:
+        linear-gradient(to bottom, rgba(3, 5, 10, 0.48), rgba(4, 7, 13, 0.64)),
+        url("sfondo");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+      line-height: 1.35;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      body { background-attachment: scroll; }
+    }
+
+    /* =========================
+       LAYOUT PRINCIPALE
+       ========================= */
+    .wrapper { max-width: 960px; margin: 20px auto; padding: 18px; }
+    .glass {
+      background: var(--panel);
+      backdrop-filter: blur(9px);
+      -webkit-backdrop-filter: blur(9px);
+      border: 1px solid rgba(120, 190, 255, 0.2);
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.40);
+      padding: 24px;
+      animation: scaleIn 0.35s ease-out;
+    }
+
+    /* =========================
+       HEADER CARTIGLIO (coerente con icona)
+       ========================= */
+    .wad-header {
+      display: grid;
+      place-items: center;
+      margin-bottom: 14px;
+    }
+    .wad-card {
+      position: relative;
+      background: var(--paper);
+      border: 4px solid var(--ink);
+      border-radius: 20px;
+      padding: clamp(16px, 4vw, 28px) clamp(18px, 6vw, 48px);
+      max-width: min(100%, 920px);
+      box-shadow:
+        0 6px 0 #2b2b2b,
+        0 18px 36px rgba(0,0,0,.28);
+    }
+    .wad-title {
+      margin: 0;
+      line-height: 1.05;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: #333333;
+      font-size: clamp(28px, 6vw, 58px);
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .wad-title .wad-sub {
+      display: inline-block;
+      font-weight: 800;
+      font-size: clamp(.55em, 2.2vw, .65em);
+      letter-spacing: .8px;
+      margin-left: .5ch;
+      padding: .25em .6em;
+      border: 3px solid var(--ink);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg,
+          var(--green) 0 30%,
+          var(--plum) 30% 60%,
+          var(--steel) 60% 100%
+        );
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,.15);
+      vertical-align: middle;
+    }
+    .wad-marble {
+      position: absolute;
+      left: 50%;
+      top: 56%;
+      transform: translate(-50%, -50%);
+      width: clamp(18px, 2.8vw, 28px);
+      aspect-ratio: 1;
+      background: radial-gradient(circle at 35% 30%, #7a4b35 0 30%, #603a2a 31% 60%, #3e271d 61% 100%);
+      border: 3px solid #2f2f2f;
+      border-radius: 50%;
+      box-shadow:
+        2px 4px 0 #2b2b2b,
+        0 8px 18px rgba(0,0,0,.25);
+    }
+
+    /* =========================
+       TESTI E CONTROLLI
+       ========================= */
+    .subline {
+      text-align:center;
+      margin-bottom: 18px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .toolbar button, .toolbar a {
+      border: none;
+      border-radius: 8px;
+      padding: 10px 14px;
+      background: linear-gradient(135deg, rgba(26, 193, 255, 0.25), rgba(64, 94, 255, 0.2));
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      text-decoration: none;
+      display:inline-block;
+    }
+    .toolbar button:hover, .toolbar a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(0,128,255,.35);
+    }
+
+    /* =========================
+       TABELLA
+       ========================= */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: inset 0 0 0 1px rgba(135, 190, 255, .14);
+    }
+    thead tr { background: linear-gradient(90deg,#1b3d71,#143168); }
+    thead th {
+      color:#eff7ff;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.09rem;
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(162, 214, 255, .22);
+      text-align: left;
+    }
+    th:first-child, td:first-child { text-align: center; width: 80px; }
+    tbody tr {
+      background: rgba(22, 35, 67, 0.5);
+      transition: background .2s ease;
+    }
+    tbody tr:nth-child(odd){ background: rgba(22, 35, 67, 0.26); }
+    tbody tr:hover { background: rgba(53, 98, 158, 0.45); }
+    td {
+      border-bottom: 1px solid rgba(107, 146, 215, 0.18);
+      padding: 10px 12px;
+      color: #e8ebfc;
+      font-size: 0.95rem;
+    }
+
+    .badge { border-radius: 999px; padding: 4px 8px; color:#111; font-weight:800; display:inline-block; min-width:26px; text-align:center; }
+    .gold { background: linear-gradient(135deg,#ffd82b,#d0a80d); }
+    .silver { background: linear-gradient(135deg,#e9ecef,#a9b3bb); }
+    .bronze { background: linear-gradient(135deg,#c48047,#782f1b); }
+    .normal { color:#9ec6ff; font-weight:600; }
+
+    .footer { margin-top: 14px; font-size: 0.88rem; color: #96abca; text-align:center; }
+    .footer a { color:#9dd8ff; text-decoration:underline; }
+
+    @keyframes scaleIn { from{opacity:0; transform:translateY(15px) scale(.97);} to{opacity:1; transform:translateY(0) scale(1);} }
+
+    @media (max-width: 720px) {
+      .toolbar { justify-content: center; }
+      td, thead th { font-size: 0.82rem; padding: 9px; }
+    }
+
+    /* =========================
+       ICONA SVILUPPATORE (liuk.png) FIXED
+       ========================= */
+    .dev-badge {
+      position: fixed;
+      right: 14px;
+      bottom: 14px;
+      z-index: 50;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #dffcff;
+      text-decoration: none;
+      transform: translateZ(0);
+      transition: filter .2s ease, transform .2s ease;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,.45));
+    }
+    .dev-badge:hover { transform: translateY(-2px); }
+
+    .dev-badge .dev-chip {
+      background: rgba(5, 9, 19, 0.72);
+      border: 1px solid rgba(120, 190, 255, 0.28);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #a8f4ff;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateX(8px);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .dev-badge:hover .dev-chip { opacity: 1; transform: translateX(0); }
+
+    .dev-badge img {
+      width: 56px;
+      height: 56px;
+      border-radius: 12px;
+      border: 2px solid rgba(160, 255, 210, 0.9);
+      background: #061017;
+      object-fit: cover;
+    }
+
+    @media (max-width: 720px) {
+      .dev-badge img { width: 44px; height: 44px; }
+      .dev-badge .dev-chip { display:none; } /* su mobile solo icona */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrapper glass">
+    <!-- HEADER in stile icona -->
+    <header class="wad-header" aria-label="Titolo del gioco">
+      <div class="wad-card">
+        <h1 class="wad-title">
+          WHAT A DRAG! <span class="wad-sub">Leaderboard</span>
+        </h1>
+        <span class="wad-marble" aria-hidden="true"></span>
+      </div>
+    </header>
+
+    <div class="subline">I migliori giocatori di “What a drag!” (Leaderboard pubblica)</div>
+
+    <div class="toolbar">
+      <button onclick="fetchLeaderboard()">Aggiorna ora</button>
+      <a href="index.html" target="_blank" rel="noopener">Privacy</a>
+    </div>
+
+    <div style="overflow:auto; max-height: 60vh; margin-top:-4px;">
+      <table id="table-leaderboard">
+        <thead>
+          <tr><th>Rank</th><th>Player</th><th>Livello</th><th>Tempo</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="footer">
+      Aggiornamento auto ogni 30 secondi. Se vuoi puoi anche aggiornare manualmente.
+    </div>
+  </div>
+
+  <!-- ICONA SVILUPPATORE (angolo in basso a destra) -->
+  <!-- Cambia href con la tua homepage/README della repo -->
+  <a class="dev-badge" href="." title="LIUK - Developer" aria-label="LIUK - Developer">
+    <span class="dev-chip">by LIUK</span>
+    <img src="liuk.png" alt="Icona sviluppatore LIUK">
+  </a>
+
+  <script>
+    async function fetchLeaderboard() {
+      const tBody = document.querySelector('#table-leaderboard tbody');
+      tBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:14px;color:#9ab4db;">Caricamento in corso…</td></tr>';
+      try {
+        const response = await fetch('leaderboard.json?v=' + Date.now(), {cache:'no-store'});
+        if (!response.ok) throw new Error(response.statusText);
+        let data = await response.json();
+        data = data
+          .filter(p => p.level >= 0) // Keep the filter
+          // The data is already sorted by the server. We just need to display it.
+          .slice(0,15);
+        if (!data.length) {
+          tBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:14px;color:#9ab4db;">Nessun record ancora.</td></tr>';
+          return;
+        }
+        tBody.innerHTML = data.map(player => {
+          let badgeClass = 'normal';
+          if (player.rank===1) badgeClass='gold';
+          else if (player.rank===2) badgeClass='silver';
+          else if (player.rank===3) badgeClass='bronze';
+          return `<tr>
+            <td><span class="badge ${badgeClass}">${player.rank}</span></td>
+            <td>${player.name}</td>
+            <td>${player.level}</td>
+            <td>${player.time}</td>
+          </tr>`;
+        }).join('');
+      } catch (err) {
+        tBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#ff8080; padding:14px;">Errore: ${err.message}</td></tr>`;
+        console.error(err);
+      }
+    }
+    fetchLeaderboard();
+    setInterval(fetchLeaderboard, 30000);
+  </script>
+</body>
+</html>
