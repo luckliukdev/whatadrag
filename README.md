@@ -20,15 +20,11 @@ Il file `leaderboard.json` contiene la Top 100 dei giocatori.
 
 ## Sicurezza
 
-Per prevenire l'invio di punteggi fraudolenti, le richieste di invio vengono validate tramite un meccanismo di firma, assicurando che provengano solo dal client di gioco ufficiale.
+La sicurezza del sistema si basa sul fatto che il `GITHUB_TOKEN` necessario per l'invio è incluso nell'APK compilato e non è facilmente accessibile dall'utente medio. Questo previene invii fraudolenti casuali, ma non protegge da un'analisi tecnica approfondita dell'APK. Per questo progetto, questo livello di sicurezza è considerato adeguato.
 
 ## Privacy
 
 Vedi `index.html` per la Privacy Policy completa. Nessun dato personale oltre al nickname di gioco viene salvato.
-
-## Configurazione
-
-Per il corretto funzionamento, è necessario configurare i **GitHub Secrets** appropriati nel repository (es. token per la validazione della firma e permessi di scrittura per la Action).
 
 ## Note Tecniche e Limitazioni
 
