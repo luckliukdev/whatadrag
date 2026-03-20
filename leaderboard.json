@@ -63,10 +63,17 @@
         "rank": 9
     },
     {
+        "name": "PLAYER",
+        "score": 1097160,
+        "level": 11,
+        "time": "04:44",
+        "rank": 10
+    },
+    {
         "name": "ANTO",
         "score": 1092930,
         "level": 11,
         "time": "11:47",
-        "rank": 10
+        "rank": 11
     }
 ]
