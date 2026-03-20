@@ -42,17 +42,24 @@
         "rank": 6
     },
     {
+        "name": "ALESSANDRO",
+        "score": 1098690,
+        "level": 11,
+        "time": "02:11",
+        "rank": 7
+    },
+    {
         "name": "SIMO",
         "score": 1098250,
         "level": 11,
         "time": "02:55",
-        "rank": 7
+        "rank": 8
     },
     {
         "name": "ANTO",
         "score": 1092930,
         "level": 11,
         "time": "11:47",
-        "rank": 8
+        "rank": 9
     }
 ]
