@@ -96,5 +96,12 @@
         "level": 99,
         "time": "00:00",
         "rank": 14
+    },
+    {
+        "name": "DEBUG_PROBE",
+        "score": 12345,
+        "level": 99,
+        "time": "00:00",
+        "rank": 15
     }
 ]
