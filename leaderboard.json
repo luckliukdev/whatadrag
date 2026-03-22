@@ -42,80 +42,87 @@
         "rank": 6
     },
     {
+        "name": "DEBUG_USER",
+        "score": 4964010,
+        "level": 50,
+        "time": "59:59",
+        "rank": 7
+    },
+    {
         "name": "LIUK",
         "score": 2296960,
         "level": 23,
         "time": "05:04",
-        "rank": 7
+        "rank": 8
     },
     {
         "name": "LEX",
         "score": 1897790,
         "level": 19,
         "time": "03:41",
-        "rank": 8
+        "rank": 9
     },
     {
         "name": "ROXY",
         "score": 1793050,
         "level": 18,
         "time": "11:35",
-        "rank": 9
+        "rank": 10
     },
     {
         "name": "NICOLE",
         "score": 1497990,
         "level": 15,
         "time": "03:21",
-        "rank": 10
+        "rank": 11
     },
     {
         "name": "PLAYER",
         "score": 1396450,
         "level": 14,
         "time": "05:55",
-        "rank": 11
+        "rank": 12
     },
     {
         "name": "LIUK",
         "score": 1098760,
         "level": 11,
         "time": "02:04",
-        "rank": 12
+        "rank": 13
     },
     {
         "name": "ALESSANDRO",
         "score": 1098690,
         "level": 11,
         "time": "02:11",
-        "rank": 13
+        "rank": 14
     },
     {
         "name": "NICC",
         "score": 1098320,
         "level": 11,
         "time": "02:48",
-        "rank": 14
+        "rank": 15
     },
     {
         "name": "SIMO",
         "score": 1098250,
         "level": 11,
         "time": "02:55",
-        "rank": 15
+        "rank": 16
     },
     {
         "name": "PLAYER",
         "score": 1097160,
         "level": 11,
         "time": "04:44",
-        "rank": 16
+        "rank": 17
     },
     {
         "name": "ANTO",
         "score": 1092930,
         "level": 11,
         "time": "11:47",
-        "rank": 17
+        "rank": 18
     }
 ]
