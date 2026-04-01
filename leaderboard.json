@@ -75,229 +75,236 @@
         "level": 52,
         "time": "18:54",
         "rank": 11
-    },    
+    },
     {
         "name": "RICKYDALBI",
         "score": 4991810,
         "level": 50,
         "time": "13:39",
-        "rank": 15
+        "rank": 12
     },
     {
         "name": "RICK",
         "score": 4991640,
         "level": 50,
         "time": "13:56",
-        "rank": 16
+        "rank": 13
     },
     {
         "name": "LIUK",
         "score": 4989660,
         "level": 50,
         "time": "17:14",
-        "rank": 17
+        "rank": 14
     },
     {
         "name": "LIUK",
         "score": 4986130,
         "level": 50,
         "time": "23:07",
-        "rank": 18
+        "rank": 15
     },
     {
         "name": "ROBE",
         "score": 4982770,
         "level": 50,
         "time": "28:43",
-        "rank": 19
-    },    
+        "rank": 16
+    },
+    {
+        "name": "TESTER",
+        "score": 4964010,
+        "level": 50,
+        "time": "59:59",
+        "rank": 17
+    },
     {
         "name": "ROBE",
         "score": 3890670,
         "level": 39,
         "time": "15:33",
-        "rank": 27
+        "rank": 18
     },
     {
         "name": "ROBE",
         "score": 3493520,
         "level": 35,
         "time": "10:48",
-        "rank": 28
+        "rank": 19
     },
     {
         "name": "ALESSANDRO",
         "score": 3191670,
         "level": 32,
         "time": "13:53",
-        "rank": 29
+        "rank": 20
     },
     {
         "name": "LUCA",
         "score": 3099900,
         "level": 31,
         "time": "00:10",
-        "rank": 30
+        "rank": 21
     },
     {
         "name": "LEX",
         "score": 3095080,
         "level": 31,
         "time": "08:12",
-        "rank": 31
+        "rank": 22
     },
     {
         "name": "NICOLE",
         "score": 2495220,
         "level": 25,
         "time": "07:58",
-        "rank": 32
+        "rank": 23
     },
     {
         "name": "LIUK",
         "score": 2296960,
         "level": 23,
         "time": "05:04",
-        "rank": 33
+        "rank": 24
     },
     {
         "name": "ROX",
         "score": 2195100,
         "level": 22,
         "time": "08:10",
-        "rank": 34
+        "rank": 25
     },
     {
         "name": "LEX",
         "score": 1897790,
         "level": 19,
         "time": "03:41",
-        "rank": 35
+        "rank": 26
     },
     {
         "name": "ROBE",
         "score": 1896870,
         "level": 19,
         "time": "05:13",
-        "rank": 36
+        "rank": 27
     },
     {
         "name": "ALESSANDRO",
         "score": 1796880,
         "level": 18,
         "time": "05:12",
-        "rank": 37
+        "rank": 28
     },
     {
         "name": "ROXY",
         "score": 1793050,
         "level": 18,
         "time": "11:35",
-        "rank": 38
+        "rank": 29
     },
     {
         "name": "PATRIZIO",
         "score": 1694890,
         "level": 17,
         "time": "08:31",
-        "rank": 39
+        "rank": 30
     },
     {
         "name": "ANTONINO",
         "score": 1689040,
         "level": 17,
         "time": "18:16",
-        "rank": 40
+        "rank": 31
     },
     {
         "name": "MORTAL",
         "score": 1597070,
         "level": 16,
         "time": "04:53",
-        "rank": 41
+        "rank": 32
     },
     {
         "name": "NICOLE",
         "score": 1497990,
         "level": 15,
         "time": "03:21",
-        "rank": 42
+        "rank": 33
     },
     {
         "name": "ANTO",
         "score": 1390090,
         "level": 14,
         "time": "16:31",
-        "rank": 43
+        "rank": 34
     },
     {
         "name": "LIUK",
         "score": 1296880,
         "level": 13,
         "time": "05:12",
-        "rank": 44
+        "rank": 35
     },
     {
         "name": "PATRIZIO",
         "score": 1295640,
         "level": 13,
         "time": "07:16",
-        "rank": 45
+        "rank": 36
     },
     {
         "name": "SIMO",
         "score": 1198490,
         "level": 12,
         "time": "02:31",
-        "rank": 46
+        "rank": 37
     },
     {
         "name": "MORTAL",
         "score": 1197740,
         "level": 12,
         "time": "03:46",
-        "rank": 47
+        "rank": 38
     },
     {
         "name": "LIUK",
         "score": 1098760,
         "level": 11,
         "time": "02:04",
-        "rank": 48
+        "rank": 39
     },
     {
         "name": "ALESSANDRO",
         "score": 1098690,
         "level": 11,
         "time": "02:11",
-        "rank": 49
+        "rank": 40
     },
     {
         "name": "NICC",
         "score": 1098320,
         "level": 11,
         "time": "02:48",
-        "rank": 50
+        "rank": 41
     },
     {
         "name": "SIMO",
         "score": 1098250,
         "level": 11,
         "time": "02:55",
-        "rank": 51
+        "rank": 42
     },
     {
         "name": "ANTO",
         "score": 1092930,
         "level": 11,
         "time": "11:47",
-        "rank": 52
+        "rank": 43
     },
     {
         "name": "ALESSANDRO",
         "score": 998950,
         "level": 10,
         "time": "01:45",
-        "rank": 53
+        "rank": 44
     }
 ]
