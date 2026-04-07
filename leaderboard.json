@@ -372,9 +372,16 @@
     },
     {
         "name": "ALESSANDRO",
+        "score": 999010,
+        "level": 10,
+        "time": "01:39",
+        "rank": 54
+    },
+    {
+        "name": "ALESSANDRO",
         "score": 998950,
         "level": 10,
         "time": "01:45",
-        "rank": 54
+        "rank": 55
     }
 ]
