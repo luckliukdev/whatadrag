@@ -435,30 +435,37 @@
     },
     {
         "name": "CRISTINA",
+        "score": 1096940,
+        "level": 11,
+        "time": "05:06",
+        "rank": 63
+    },
+    {
+        "name": "CRISTINA",
         "score": 1096680,
         "level": 11,
         "time": "05:32",
-        "rank": 63
+        "rank": 64
     },
     {
         "name": "ANTO",
         "score": 1092930,
         "level": 11,
         "time": "11:47",
-        "rank": 64
+        "rank": 65
     },
     {
         "name": "ALESSANDRO",
         "score": 999010,
         "level": 10,
         "time": "01:39",
-        "rank": 65
+        "rank": 66
     },
     {
         "name": "ALESSANDRO",
         "score": 998950,
         "level": 10,
         "time": "01:45",
-        "rank": 66
+        "rank": 67
     }
 ]
